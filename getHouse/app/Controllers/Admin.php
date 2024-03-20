@@ -32,17 +32,25 @@ class Admin extends BaseController{
 	// function control
 	public function addUsers(){
 		if($this->validate($this->rules->addUsers())){
-			$data = [
-				'name' => $this->request->getVar("name"),
-				'username' => $this->request->getVar("username"),
-				'email' => $this->request->getVar("email"),
-				'password' => $this->request->getVar("password"),
-				'no_telp' => $this->request->getVar("no_telp"),
-				'address' => $this->request->getVar("address"),
-				'photos' => $this->request->getFile("photos"),
-				'created_at' => date("Y-m-d H:i:s"),
-				'updated_at' => date("Y-m-d H-i-s")
-			];
+
+			$imagePost = $this->request->getFile("photos");
+
+			if($imagePost->isValid() && !$imagePost->hasMoved()){
+				$newName = $imagePost->getRandomName();
+				$imagePost->move(ROOTPATH.'public/assets/uploads/image/', $newName);
+				$data = [
+					'name' => $this->request->getVar("name"),
+					'username' => $this->request->getVar("username"),
+					'email' => $this->request->getVar("email"),
+					'password' => $this->request->getVar("password"),
+					'no_telp' => $this->request->getVar("no_telp"),
+					'address' => $this->request->getVar("address"),
+					'photos' => $newName,
+					'created_at' => date("Y-m-d H:i:s"),
+					'updated_at' => date("Y-m-d H-i-s")
+				];
+			}
+
 
 			echo var_dump($data);
 			die();
