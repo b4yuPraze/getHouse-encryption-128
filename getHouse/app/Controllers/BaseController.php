@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use App\Libraries\Look;
+use App\Libraries\rulesValidation;
 
 /**
  * Class BaseController
@@ -38,7 +39,7 @@ abstract class BaseController extends Controller
      * @var array
      */
     protected $helpers = [];
-    protected $lookAt;
+    protected $lookAt, $rules;
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -58,5 +59,6 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->lookAt = new Look();
+        $this->rules = new rulesValidation();
     }
 }
