@@ -10,12 +10,19 @@ class Look{
 		echo view("partition/footer", $data);
 	}
 
+
 	function admin($location, $data){
 		echo view("admin/partition/head", $data);
 		echo view("admin/partition/aside", $data);
 		echo view("admin/partition/navbar", $data);
 		echo view($location, $data);
 		echo view("admin/partition/footer", $data);
+	}
+
+	function print($location, $data){
+		echo view("partition/head", $data);
+		echo view($location, $data);
+		// echo view("partition/footer", $data);
 	}
 }
 

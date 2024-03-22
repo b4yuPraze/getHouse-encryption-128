@@ -65,6 +65,109 @@ class rulesValidation{
 		return $data;
 	}
 
+	function addParticipants(){
+		$data = [
+
+			'id_no' => [
+				'label' => "ID NO",
+				'rules' => "required",
+				'errors' => [
+					'required' => "ID No harus diisi!"
+				]
+			],
+
+			'test_no' => [
+				'label' => "Test No",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Test No harus diisi!"
+				]
+			],
+
+			'date' => [
+				'label' => "Tanggal",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Tanggal harus diisi!"
+				]
+			],
+
+			'name' => [
+				'label' => "Nama",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Nama harus diisi!"
+				]
+			],
+
+			'address' => [
+				'label' => "Alamat",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Alamat harus diisi!"
+				]
+			],
+
+			'no_phone' => [
+				'label' => "Nomor Ponsel",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Nomor Ponsel harus diisi!"
+				]
+			],
+
+			'listening' => [
+				'label' => "Listening",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Listening harus diisi!"
+				]
+			],
+
+			'structure' => [
+				'label' => "Structure",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Structure harus diisi!"
+				]
+			],
+
+			'reading' => [
+				'label' => "Reading",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Reading harus diisi!"
+				]
+			],
+
+			'test_scores' => [
+				'label' => "Test Score",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Test Score harus diisi!"
+				]
+			],
+
+			'total' => [
+				'label' => "Total",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Total harus diisi!"
+				]
+			],
+
+			'toefl_prediction' => [
+				'label' => "TOEFL PREDICTION",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Toefl Prediction harus diisi!"
+				]
+			],
+		];
+
+		return $data;
+	}
+
 }
 
 /* End of file Look.php */
