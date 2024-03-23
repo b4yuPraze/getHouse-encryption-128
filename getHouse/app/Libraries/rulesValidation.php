@@ -6,12 +6,12 @@ class rulesValidation{
 
 	function addUsers(){
 		$data = [
-			'name' => [
+			'fullname' => [
 				'label' => "Full Name",
 				'rules' => "required|min_length[2]",
 				'errors' => [
 					'required' => "Full Name is required!",
-					'min_length' => "Full Name not valid, min length for name is 2 character!"
+					'min_length' => "Full Name not valid, min length for fullname is 2 character!"
 				]
 			],
 			'username' => [
@@ -38,7 +38,7 @@ class rulesValidation{
 					'matches' => "Password dont matches!"
 				]
 			],
-			'no_telp' => [
+			'no_phone' => [
 				'label' => "No. Phone",
 				'rules' => "required|numeric|min_length[8]|max_length[15]",
 				'errors' => [
@@ -59,6 +59,54 @@ class rulesValidation{
 			'photos' => [
 				'label' => "Photos",
 				'rules' => "uploaded[photos]|max_size[photos,100024]|mime_in[photos,image/jpeg,image/png,image/gif]",
+			]
+		];
+
+		return $data;
+	}
+
+	function editUsers(){
+		$data = [
+			'id_users' => [
+				'label' => "ID Users",
+				'rules' => "required",
+				'errors' => [
+					'required' => "ID Users is required!",
+				]
+			],
+			'fullname' => [
+				'label' => "Full Name",
+				'rules' => "required|min_length[2]",
+				'errors' => [
+					'required' => "Full Name is required!",
+					'min_length' => "Full Name not valid, min length for fullname is 2 character!"
+				]
+			],
+			'username' => [
+				'label' => "Username",
+				'rules' => "required|min_length[6]",
+				'errors' => [
+					'required' => "Username is required!",
+					'min_length' => "Username not valid, min length for username is 6 character!"
+				]
+			],
+			'no_phone' => [
+				'label' => "No. Phone",
+				'rules' => "required|numeric|min_length[8]|max_length[15]",
+				'errors' => [
+					'required' => "No. Phone is required!",
+					'numeric' => "No. Phone not valid, No. Phone must be number!",
+					'min_length' => "No. Phone not valid, min length for No. Phone is 8 digits!",
+					'min_length' => "No. Phone not valid, max length for No. Phone is 15 digits!"
+				]
+			],
+			'address' => [
+				'label' => "Address",
+				'rules' => "required|min_length[3]",
+				'errors' => [
+					'required' => "Address is required!",
+					'min_length' => "Address not valid, min length for Address is 3 character!"
+				]
 			]
 		];
 

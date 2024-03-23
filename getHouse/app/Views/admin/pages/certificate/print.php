@@ -18,52 +18,53 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<td id="name"></td>
+				<td id="name"><?= $printCertificate[0]['name'] ?></td>
 				<th>Test No. </th>
-				<td id="test_no"></td>
+				<td id="test_no"><?= $printCertificate[0]['test_no'] ?></td>
 			</tr>
 			<tr>
 				<th>Address</th>
-				<td id="address"></td>
+				<td id="address"><?= $printCertificate[0]['address'] ?></td>
 				<th>Date Test</th>
-				<td id="date_test"></td>
+				<td id="date_test"><?= $printCertificate[0]['date'] ?></td>
 			</tr>
 			<tr>
 				<th>Phone no.</th>
-				<td id="phone_no"></td>
+				<td id="phone_no"><?= $printCertificate[0]['no_phone'] ?></td>
 				<th>ID No.</th>
-				<td id="id_no"></td>
+				<td id="id_no"><?= $printCertificate[0]['id_no'] ?></td>
 			</tr>
 			<tr>
 				<th colspan="4" class="text-center">
 					<b>TEST SCORES</b>
 					<br>
-					FORM: <span id="test_scores">C</span>
+					FORM: <span id="test_scores"><?= $printCertificate[0]['test_scores'] ?></span>
 				</th>
 			</tr>
 			<tr>
 				<th>Componen</th>
 				<th>Rating</th>
 				<th>TOEFL Prediction</th>
-				<td class="text-center border-bottom-0">Issued in Cirebon, September 27, 2023</td>
+				<?php $dated = date_create($printCertificate[0]['date']) ?>
+				<td class="text-center border-bottom-0">Issued in Cirebon, <?= date_format($dated, "F d, Y") ?></td>
 			</tr>
 			<tr>
 				<th>Listening</th>
-				<td id="listening"></td>
-				<th rowspan="4" class="align-middle text-center" style="font-size: 20px;" id="nilai"></th>
-				<td rowspan="3" class="border-top-0 border-bottom-0 align-middle text-center">Untuk QRCODE</td>
+				<td id="listening"><?= $printCertificate[0]['listening'] ?></td>
+				<th rowspan="4" class="align-middle text-center" style="font-size: 20px;" id="nilai"><?= $printCertificate[0]['toefl_prediction'] ?></th>
+				<td rowspan="3" class="border-top-0 border-bottom-0 align-middle text-center"><img src="<?= base_url('assets/QRcode/').$qrCode ?>" alt=""></td>
 			</tr>
 			<tr>
 				<th>Structure</th>
-				<td id="structure"></td>
+				<td id="structure"><?= $printCertificate[0]['structure'] ?></td>
 			</tr>
 			<tr>
 				<th>Reading</th>
-				<td class="valign-center" id="reading"></td>
+				<td class="valign-center" id="reading"><?= $printCertificate[0]['reading'] ?></td>
 			</tr>
 			<tr>
 				<th>TOTAL</th>
-				<td class="valign-center" id="total"></td>
+				<td class="valign-center" id="total"><?= $printCertificate[0]['total'] ?></td>
 				<th class="text-center border-start-0 border-top-0">Akhmad Fauzi, M.Pd. / Head</th>
 			</tr>
 			<tr>

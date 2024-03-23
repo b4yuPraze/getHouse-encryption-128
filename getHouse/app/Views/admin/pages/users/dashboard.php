@@ -45,16 +45,17 @@
 		<div class="col-md-4 col-sm-12">
 			<h4>Add Users</h4>
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div id="card_header" class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">Add Users</h6>
 				</div>
 				<div class="card-body">
-					<form class="user" method="post" action="<?= base_url('administrator/addUsers') ?>" enctype="multipart/form-data">
+					<form id="form_add_and_edit" class="user" method="post" action="<?= base_url('administrator/addUsers') ?>" enctype="multipart/form-data">
+						<input type="text" id="id_users" name="id_users" hidden readonly>
 						<div class="form-group row">
 							<div class="col-sm-6 mb-3 mb-sm-0">
-								<input type="text" class="form-control mb-3" id="Nama" name="name" placeholder="Full Name" value="<?= (isset($dataInput)) ? $dataInput['name'] : "" ?>">
-								<?php if (isset($validation) && $validation->hasError('name')){ ?>
-			                        <p class="alert alert-danger"><?php echo $validation->getError('name'); ?></p>
+								<input type="text" class="form-control mb-3" id="fullname" name="fullname" placeholder="Full Name" value="<?= (isset($dataInput)) ? $dataInput['fullname'] : "" ?>">
+								<?php if (isset($validation) && $validation->hasError('fullname')){ ?>
+			                        <p class="alert alert-danger"><?php echo $validation->getError('fullname'); ?></p>
 			                    <?php } ?>
 							</div>
 							<div class="col-sm-6">
@@ -85,9 +86,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="number" class="form-control mb-3" id="no_telp" name="no_telp" placeholder="No. Phone" value="<?= (isset($dataInput)) ? $dataInput['no_telp'] : "" ?>">
-							<?php if (isset($validation) && $validation->hasError('no_telp')){ ?>
-		                        <p class="alert alert-danger"><?php echo $validation->getError('no_telp'); ?></p>
+							<input type="number" class="form-control mb-3" id="no_phone" name="no_phone" placeholder="No. Phone" value="<?= (isset($dataInput)) ? $dataInput['no_phone'] : "" ?>">
+							<?php if (isset($validation) && $validation->hasError('no_phone')){ ?>
+		                        <p class="alert alert-danger"><?php echo $validation->getError('no_phone'); ?></p>
 		                    <?php } ?>
 						</div>
 						<div class="form-group">
@@ -107,7 +108,7 @@
 						<?php if (isset($validation) && $validation->hasError('photos')){ ?>
 	                        <p class="alert alert-danger"><?php echo $validation->getError('photos'); ?></p>
 	                    <?php } ?>
-						<button class="btn btn-primary btn-block" type="submit">Add Users</button>
+						<button id="addandedit" class="btn btn-primary btn-block" type="submit">Add Users</button>
 					</form>
 				</div>
 			</div>
@@ -128,7 +129,6 @@
 									<th>Name</th>
 									<th>Username</th>
 									<th>Email</th>
-									<th>Password</th>
 									<th>No. Phone</th>
 									<th>Address</th>
 									<th>Photo</th>
@@ -141,7 +141,6 @@
 									<th>Name</th>
 									<th>Username</th>
 									<th>Email</th>
-									<th>Password</th>
 									<th>No. Phone</th>
 									<th>Address</th>
 									<th>Photo</th>
@@ -149,20 +148,21 @@
 								</tr>
 							</tfoot>
 							<tbody>
+								<?php foreach($dataUsers as $index => $items){ ?>
 								<tr>
-									<td>1</td>
-									<td>Arham</td>
-									<td>arhamcaem</td>
-									<td>arham@gethouse.com</td>
-									<td>12345678</td>
-									<td>083824587800</td>
-									<td>Desa Kadugede</td>
-									<td>users.png</td>
+									<td><?= $index+1 ?></td>
+									<td><?= $items['fullname'] ?></td>
+									<td><?= $items['username'] ?></td>
+									<td><?= $items['email'] ?></td>
+									<td><?= $items['no_phone'] ?></td>
+									<td><?= $items['address'] ?></td>
+									<td><img src="<?= base_url('assets/uploads/image/').$items['photos'] ?>" alt="photo pengguna" class="w-100"></td>
 									<td>
-										<button class="btn btn-warning btn-sm btn-circle"><i class="fa fas fa-exclamation-triangle"></i></button>
+										<button id="edit" class="btn btn-warning btn-sm btn-circle" data-id_users="<?= $items['id_users'] ?>" data-fullname="<?= $items['fullname'] ?>" data-username="<?= $items['username'] ?>" data-email="<?= $items['email'] ?>" data-no_phone="<?= $items['no_phone'] ?>" data-address="<?= $items['address'] ?>"><i class="fa fas fa-exclamation-triangle"></i></button>
 										<button class="btn btn-danger btn-sm btn-circle"><i class="fa fas fa-trash"></i></button>
 									</td>
 								</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
@@ -173,9 +173,48 @@
 </div>
 
 <script type="text/javascript">
+	const fullname = document.querySelector("#fullname")
+	const username = document.querySelector("#username")
+	const email = document.querySelector("#email")
+	const phone = document.querySelector("#no_phone")
+	const address = document.querySelector("#address")
+	const addandedit = document.querySelector("#addandedit")
+	const id_users = document.querySelector("#id_users")
+	const form_add_and_edit = document.querySelector("#form_add_and_edit")
+
 	const chooseFile = document.querySelector(".photos")
 	const showImage = document.querySelector(".show-image")
 	const titleChoosePhotos = document.querySelector(".title-choose-photos")
+
+	// Edit
+	const edit = document.querySelectorAll("#edit")
+
+
+	edit.forEach(n => {
+		n.addEventListener("click", () => {
+			form_add_and_edit.setAttribute("action", "<?= base_url('administrator/editUsers') ?>")
+			id_users.value = n.getAttribute("data-id_users")
+			fullname.value = n.getAttribute("data-fullname")
+			username.value = n.getAttribute("data-username")
+			email.value = n.getAttribute("data-email")
+			phone.value = n.getAttribute("data-no_phone")
+			address.value = n.getAttribute("data-address")
+			addandedit.innerHTML = "Edit Users"
+			addandedit.setAttribute("class", "btn btn-warning w-100")
+		})
+	})
+
+	card_header.addEventListener('click', () => {
+		form_add_and_edit.setAttribute("action", "<?= base_url('administrator/addUsers') ?>")
+		id_users.value = ""
+		fullname.value = ""
+		username.value = ""
+		email.value = ""
+		phone.value = ""
+		address.value = ""
+		addandedit.innerHTML = "Add Users"
+		addandedit.setAttribute("class", "btn btn-primary w-100")
+	})
 
 	chooseFile.addEventListener("change", () => {
 		console.log(chooseFile)

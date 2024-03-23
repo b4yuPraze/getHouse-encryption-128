@@ -42,7 +42,7 @@
 									<td><button id="btn_preview_certificate" class="btn btn-info btn-sm w-100" data-toggle="modal" data-target="#exampleModalCenter" data-name="<?= $items['name'] ?>" data-address="<?= $items['address'] ?>" data-phone="<?= $items['no_phone'] ?>" data-test_no="<?= $items['test_no'] ?>" data-date="<?= $items['date'] ?>" data-id_no="<?= $items['id_no'] ?>" data-test_scores="<?= $items['test_scores'] ?>" data-listening="<?= $items['listening'] ?>" data-structure="<?= $items['structure'] ?>" data-reading="<?= $items['reading'] ?>" data-total="<?= $items['total'] ?>" data-toefl_prediction="<?= $items['toefl_prediction'] ?>">Certificate</button></td>
 									<td>
 										<!-- <button class="btn btn-warning btn-sm btn-circle"><i class="fa fas fa-exclamation-triangle"></i></button> -->
-										<button class="btn btn-success btn-sm w-100"><i class="fa fas fa-download"></i> Download</button>
+										<a href="<?= base_url('administrator/print/').$items['id_participants'] ?>" class="btn btn-success btn-sm w-100"><i class="fa fas fa-download"></i> Download</a>
 									</td>
 								</tr>
 								<?php } ?>

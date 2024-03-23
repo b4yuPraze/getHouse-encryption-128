@@ -4,7 +4,7 @@
 		<div class="col-md-4 col-sm-12">
 			<h4>Add Participants</h4>
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div class="card-header py-3" id="header-addparticipants">
 					<div class="row align-items-center justify-content-between">
 						<div class="col-md-8 col-sm-12">
 							<h6 class="m-0 font-weight-bold text-primary">Add Participants</h6>
@@ -18,7 +18,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<form action="<?= base_url('administrator/addParticipants') ?>" method="post">
+					<form action="<?= base_url('administrator/addParticipants') ?>" method="post" id="form_add_and_edit">
+						<input type="text" name="id_participants" id="id_participants" hidden readonly>
 						<div class="form-group row">
 							<div class="col-sm-6 mb-3 mb-sm-0">
 								<input type="text" class="form-control" id="id_no" name="id_no" placeholder="ID Number">
@@ -46,7 +47,7 @@
 		                    <?php } ?>
 						</div>
 						<div class="form-group">
-							<textarea name="address" class="form-control" placeholder="Address"></textarea>
+							<textarea id="address" name="address" class="form-control" placeholder="Address"></textarea>
 							<?php if (isset($validation) && $validation->hasError('address')){ ?>
 		                        <p class="alert alert-danger mt-3"><?php echo $validation->getError('address'); ?></p>
 		                    <?php } ?>
@@ -98,7 +99,7 @@
 		                        <p class="alert alert-danger mt-3"><?php echo $validation->getError('date'); ?></p>
 		                    <?php } ?>
 						</div>
-						<button class="btn btn-primary btn-block" type="submit">Add Participants</button>
+						<button class="btn btn-primary btn-block" type="submit" id="btn_update_add">Add Participants</button>
 						<!-- <a href="login.html" class="btn btn-primary btn-block">Add Participants</a> -->
 					</form>
 				</div>
@@ -167,7 +168,7 @@
 									<td><?= $items['toefl_prediction'] ?></td>
 									<td><?= $items['test_scores'] ?></td>
 									<td>
-										<button class="btn btn-warning btn-sm btn-circle"><i class="fa fas fa-exclamation-triangle"></i></button>
+										<button id="edit" class="btn btn-warning btn-sm btn-circle" data-id_participants="<?= $items['id_participants'] ?>" data-id_no="<?= $items['id_no'] ?>" data-test_no="<?= $items['test_no'] ?>" data-date="<?= $items['date'] ?>" data-name="<?= $items['name'] ?>" data-address="<?= $items['address'] ?>" data-phone="<?= $items['no_phone'] ?>" data-listening="<?= $items['listening'] ?>" data-structure="<?= $items['structure'] ?>" data-reading="<?= $items['reading'] ?>" data-total="<?= $items['total'] ?>" data-toefl_prediction="<?= $items['toefl_prediction'] ?>" data-test_scores="<?= $items['test_scores'] ?>"><i class="fa fas fa-exclamation-triangle"></i></button>
 										<button class="btn btn-danger btn-sm btn-circle"><i class="fa fas fa-trash"></i></button>
 									</td>
 								</tr>
@@ -203,3 +204,61 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	const header = document.querySelector("#header-addparticipants")
+	const form_add_and_edit = document.querySelector("#form_add_and_edit")
+	const id_participants = document.querySelector("#id_participants")
+	const id_no = document.querySelector("#id_no")
+	const test_no = document.querySelector("#test_no")
+	const name = document.querySelector("#name")
+	const phone = document.querySelector("#no_phone")
+	const address = document.querySelector("#address")
+	const listening = document.querySelector("#listening")
+	const structure = document.querySelector("#structure")
+	const reading = document.querySelector("#reading")
+	const total = document.querySelector("#total")
+	const toefl_prediction = document.querySelector("#toefl_prediction")
+	const test_scores = document.querySelector("#test_scores")
+	const btn_update_add = document.querySelector("#btn_update_add")
+
+	const btnEdit = document.querySelectorAll("#edit")
+
+	btnEdit.forEach(n => {
+		n.addEventListener("click", () => {
+			form_add_and_edit.setAttribute("action", "<?= base_url('administrator/editParticipants') ?>")
+			id_participants.value = n.getAttribute("data-id_participants")
+			id_no.value = n.getAttribute("data-id_no")
+			test_no.value = n.getAttribute("data-test_no")
+			name.value = n.getAttribute("data-name")
+			phone.value = n.getAttribute("data-phone")
+			address.value = n.getAttribute("data-address")
+			listening.value = n.getAttribute("data-listening")
+			structure.value = n.getAttribute("data-structure")
+			reading.value = n.getAttribute("data-reading")
+			total.value = n.getAttribute("data-total")
+			toefl_prediction.value = n.getAttribute("data-toefl_prediction")
+			test_scores.value = n.getAttribute("data-test_scores")
+			btn_update_add.innerHTML = "Update Participants"
+			btn_update_add.setAttribute("class", "btn btn-warning w-100")
+		})
+	})
+
+	header.addEventListener("click", () => {
+		form_add_and_edit.setAttribute("action", "<?= base_url('administrator/addParticipants') ?>")
+		id_participants.value = ""
+		id_no.value = ""
+		test_no.value = ""
+		name.value = ""
+		phone.value = ""
+		address.value = ""
+		listening.value = ""
+		structure.value = ""
+		reading.value = ""
+		total.value = ""
+		toefl_prediction.value = ""
+		test_scores.value = ""
+		btn_update_add.innerHTML = "Add Participants"
+		btn_update_add.setAttribute("class", "btn btn-primary w-100")
+	})
+</script>
