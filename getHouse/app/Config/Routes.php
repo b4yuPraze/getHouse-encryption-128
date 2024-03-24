@@ -19,6 +19,9 @@ $routes->get("administrator/kelolaPeserta", "Admin::manageParticipants");
 $routes->get("administrator/kelolaPengguna", "Admin::manageUsers");
 $routes->get("administrator/print/(:any)", "Admin::printCertificate/$1");
 
+$routes->get("auth", "Admin::signin");
+$routes->post("auth/login", "Admin::login");
+$routes->get("auth/logout", "Admin::logout");
 /* Routes Administrator
 
     [ Controller Functions Admin ]

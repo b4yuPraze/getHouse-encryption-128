@@ -49,6 +49,10 @@ class Admin extends BaseController{
 		$this->lookAt->admin("admin/pages/users/dashboard", $this->dataPassing);
 	}
 
+	public function signin(){
+		$this->lookAt->signin("auth/signin", $this->dataPassing);
+	}
+
 
 	// function control
 	public function addUsers(){
@@ -257,6 +261,46 @@ class Admin extends BaseController{
 			$this->getSomeErrors();
 			$this->manageParticipants();
 		}
+	}
+
+	public function login(){
+		if($this->validate($this->rules->signin())){
+			$username = $this->request->getVar("username");
+			$password = $this->request->getVar("password");
+
+			$query = model("Users")->where("username", $username)->first();
+			
+			if($query != null){
+				if(password_verify($password, $query['password'])){
+					$__sessUsers = [
+						'fullname' => $query['fullname'],
+						'username' => $query['username'],
+						'password' => $query['password'],
+						'email' => $query['email'],
+						'no_phone' => $query['no_phone'],
+						'address' => $query['address'],
+						'photos' => $query['photos']
+					];
+
+					session()->set("__sessUsers", $__sessUsers);
+					return redirect()->route("administrator")->with("successLogin", "Welcome to your dashboard Admin!");
+				}else{
+					$this->getSomeErrors();
+					$this->signin();
+				}
+			}else{
+				$this->getSomeErrors();
+				return redirect()->route("auth")->with("failedLogin", "Your account not found!");
+			}
+		}else{
+			$this->getSomeErrors();
+			$this->signin();
+		}
+	}
+
+	public function logout(){
+		session()->destroy();
+		return redirect()->to(base_url());
 	}
 
 	private function makeQR($id_participants){

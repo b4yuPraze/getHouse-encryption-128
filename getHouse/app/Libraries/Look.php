@@ -24,6 +24,12 @@ class Look{
 		echo view($location, $data);
 		// echo view("partition/footer", $data);
 	}
+
+	function signin($location, $data){
+		echo view("partition/head", $data);
+		echo view($location, $data);
+		echo view("partition/script_login", $data);
+	}
 }
 
 /* End of file Look.php */

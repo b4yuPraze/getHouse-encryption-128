@@ -216,6 +216,28 @@ class rulesValidation{
 		return $data;
 	}
 
+	function signin(){
+		$data = [
+			'username' => [
+				'label' => "Username",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Username is required!"
+				]
+			],
+
+
+			'password' => [
+				'label' => "Password",
+				'rules' => "required",
+				'errors' => [
+					'required' => "Password is required!"
+				]
+			]
+		];
+		return $data;
+	}
+
 }
 
 /* End of file Look.php */

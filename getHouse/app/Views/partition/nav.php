@@ -10,7 +10,7 @@
         <a class="nav-link" href="#">Service</a>
         <a class="nav-link" href="#">About</a>
         <a class="nav-link" href="#">Contact</a>
-        <a class="nav-link" href="#"><a href="#!" class="btn btn-warning btn-sm">Sign in</a></a>
+        <a class="nav-link" href="#"><a href="<?= base_url('auth') ?>" class="btn btn-warning btn-sm">Sign in</a></a>
         <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
       </div>
     </div>
