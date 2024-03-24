@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4 col-sm-12">
@@ -88,7 +87,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="number" class="form-control" id="test_scores" name="test_scores" placeholder="Test Scores">
+							<input type="text" class="form-control" id="test_scores" name="test_scores" placeholder="Test Scores">
 							<?php if (isset($validation) && $validation->hasError('test_scores')){ ?>
 		                        <p class="alert alert-danger mt-3"><?php echo $validation->getError('test_scores'); ?></p>
 		                    <?php } ?>
@@ -169,7 +168,7 @@
 									<td><?= $items['test_scores'] ?></td>
 									<td>
 										<button id="edit" class="btn btn-warning btn-sm btn-circle" data-id_participants="<?= $items['id_participants'] ?>" data-id_no="<?= $items['id_no'] ?>" data-test_no="<?= $items['test_no'] ?>" data-date="<?= $items['date'] ?>" data-name="<?= $items['name'] ?>" data-address="<?= $items['address'] ?>" data-phone="<?= $items['no_phone'] ?>" data-listening="<?= $items['listening'] ?>" data-structure="<?= $items['structure'] ?>" data-reading="<?= $items['reading'] ?>" data-total="<?= $items['total'] ?>" data-toefl_prediction="<?= $items['toefl_prediction'] ?>" data-test_scores="<?= $items['test_scores'] ?>"><i class="fa fas fa-exclamation-triangle"></i></button>
-										<button class="btn btn-danger btn-sm btn-circle"><i class="fa fas fa-trash"></i></button>
+										<button id="deleteDataUser" class="btn btn-danger btn-sm btn-circle" data-toggle="modal" data-target="#deleteData" data-fullname="<?= $items['name'] ?>" data-id_users="<?= $items['id_participants'] ?>"><i class="fa fas fa-trash"></i></button>
 									</td>
 								</tr>
 								<?php } ?>
@@ -205,6 +204,26 @@
 	</div>
 </div>
 
+<div class="modal fade" id="deleteData" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h4>Are you sure to delete data <b id="name_to_delete"></b></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="#!" class="btn btn-danger" id="routeDelete">Yes, Delete</a>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	const header = document.querySelector("#header-addparticipants")
 	const form_add_and_edit = document.querySelector("#form_add_and_edit")
@@ -224,6 +243,10 @@
 
 	const btnEdit = document.querySelectorAll("#edit")
 
+	const deleteDataUser = document.querySelectorAll("#deleteDataUser")
+	const name_to_delete = document.querySelector("#name_to_delete")
+	const routeDelete = document.querySelector("#routeDelete")
+
 	btnEdit.forEach(n => {
 		n.addEventListener("click", () => {
 			form_add_and_edit.setAttribute("action", "<?= base_url('administrator/editParticipants') ?>")
@@ -241,6 +264,13 @@
 			test_scores.value = n.getAttribute("data-test_scores")
 			btn_update_add.innerHTML = "Update Participants"
 			btn_update_add.setAttribute("class", "btn btn-warning w-100")
+		})
+	})
+
+	deleteDataUser.forEach(n => {
+		n.addEventListener('click', () => {
+			name_to_delete.innerHTML = n.getAttribute("data-fullname")
+			routeDelete.setAttribute("href", "<?= base_url('administrator/deleteParticipants/') ?>"+n.getAttribute('data-id_users'))
 		})
 	})
 

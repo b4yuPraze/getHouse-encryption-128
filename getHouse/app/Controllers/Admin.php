@@ -127,6 +127,16 @@ class Admin extends BaseController{
 		}
 	}
 
+	public function deleteUsers($id_users){
+		if($id_users != null){
+			if(model("Users")->where("id_users", $id_users)->delete()){
+				return redirect()->back()->with("successUsers", "Success to delete data users");
+            }else{
+                return redirect()->back()->with("failedUsers", "Failed to delete data users");
+            }
+		}
+	}
+
 	public function addParticipants(){
 		if($this->validate($this->rules->addParticipants())){
 			$data = [
@@ -179,11 +189,21 @@ class Admin extends BaseController{
 	                return redirect()->route("administrator/kelolaPeserta")->with("failedParticipants", "Failed to update data participants");
 	            }
 			}else{
-				return redirect()->back()->with("failedUsers", "Data users not updated");
+				return redirect()->back()->with("failedUsers", "Data participants not updated");
 			}
 		}else{
 			$this->getSomeErrors();
 			$this->manageParticipants();
+		}
+	}
+
+	public function deleteParticipants($id_participants){
+		if($id_participants != null){
+			if(model("Participants")->where("id_participants", $id_participants)->delete()){
+				return redirect()->back()->with("successParticipants", "Success to delete data participants");
+            }else{
+                return redirect()->back()->with("failedParticipants", "Failed to delete data participants");
+            }
 		}
 	}
 

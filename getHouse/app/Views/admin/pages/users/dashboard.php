@@ -159,7 +159,7 @@
 									<td><img src="<?= base_url('assets/uploads/image/').$items['photos'] ?>" alt="photo pengguna" class="w-100"></td>
 									<td>
 										<button id="edit" class="btn btn-warning btn-sm btn-circle" data-id_users="<?= $items['id_users'] ?>" data-fullname="<?= $items['fullname'] ?>" data-username="<?= $items['username'] ?>" data-email="<?= $items['email'] ?>" data-no_phone="<?= $items['no_phone'] ?>" data-address="<?= $items['address'] ?>"><i class="fa fas fa-exclamation-triangle"></i></button>
-										<button class="btn btn-danger btn-sm btn-circle"><i class="fa fas fa-trash"></i></button>
+										<button id="deleteDataUser" class="btn btn-danger btn-sm btn-circle" data-toggle="modal" data-target="#deleteData" data-fullname="<?= $items['fullname'] ?>" data-id_users="<?= $items['id_users'] ?>"><i class="fa fas fa-trash"></i></button>
 									</td>
 								</tr>
 								<?php } ?>
@@ -167,6 +167,26 @@
 						</table>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deleteData" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h4>Are you sure to delete data <b id="name_to_delete"></b></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="#!" class="btn btn-danger" id="routeDelete">Yes, Delete</a>
 			</div>
 		</div>
 	</div>
@@ -189,6 +209,11 @@
 	// Edit
 	const edit = document.querySelectorAll("#edit")
 
+	// delete
+	const deleteDataUser = document.querySelectorAll("#deleteDataUser")
+	const name_to_delete = document.querySelector("#name_to_delete")
+	const routeDelete = document.querySelector("#routeDelete")
+
 
 	edit.forEach(n => {
 		n.addEventListener("click", () => {
@@ -201,6 +226,13 @@
 			address.value = n.getAttribute("data-address")
 			addandedit.innerHTML = "Edit Users"
 			addandedit.setAttribute("class", "btn btn-warning w-100")
+		})
+	})
+
+	deleteDataUser.forEach(n => {
+		n.addEventListener('click', () => {
+			name_to_delete.innerHTML = n.getAttribute("data-fullname")
+			routeDelete.setAttribute("href", "<?= base_url('administrator/deleteUsers/') ?>"+n.getAttribute('data-id_users'))
 		})
 	})
 

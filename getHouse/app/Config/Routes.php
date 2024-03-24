@@ -26,6 +26,8 @@ $routes->get("administrator/print/(:any)", "Admin::printCertificate/$1");
 */
 $routes->post('administrator/addUsers', 'Admin::addUsers');
 $routes->post('administrator/editUsers', 'Admin::editUsers');
+$routes->get('administrator/deleteUsers/(:any)', 'Admin::deleteUsers/$1');
 $routes->post('administrator/addParticipants', 'Admin::addParticipants');
 $routes->post('administrator/editParticipants', 'Admin::editParticipants');
+$routes->get('administrator/deleteParticipants/(:any)', 'Admin::deleteParticipants/$1');
 $routes->post('administrator/importExcel', 'Admin::importData');
